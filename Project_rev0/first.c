@@ -2,6 +2,7 @@
 //#define
 #include <stdio.h>
 #include <string.h>
+#include <math.h>
 #define ARR_SIZE 5
 
 void double_it(int num);
@@ -14,7 +15,32 @@ unsigned int absolute(int x)
 	return x > 0 ? x : -x;
 }
 
+/*struct point {
+	int x, y;
+};*/
 
+/*struct line {
+	struct point start, end;
+
+};*/
+
+//void print_point(const struct point_t* ptr);
+double get_length(const struct line* ptr);
+
+
+enum direction { north, south, east, west };
+
+union test {
+	int i;
+	char c;
+	short s;
+};
+
+typedef struct point {
+	int x, y;
+} point_t;
+
+void print_point(const point_t* ptr);
 
 int count;
 
@@ -306,7 +332,7 @@ int main()
 	p = strtok(NULL, "-");
 	printf("line no.: %s\n", p);
 	*/
-	
+	/*
 	char str[64] = "this is test string for char pointer.";
 	char* p = str;
 	int cnt = 0;
@@ -331,10 +357,118 @@ int main()
 	printf("cnt=%d\n", cnt);
 	printf("address of p=%d\n", p);
 	
+	*/
+
+
+	//구조체
+	//함수의 매개변수를 구조체 포인터형으로 선언
+	//	void prin_content(struct content* ptr);
+	//구조체 변수가 입력 매개변수일 에는 const로 지정
+	//void print_content(const struct content* ptr);
+	//구조체를 매개변수로 갖는 함수를 호출할 때에는 구조체 변수의 주소를 인자로 전달
+	//
+	
+	/*struct line ln1 = {
+		{10, 20}, {30, 40}
+	}
+	*/
+	/*
+	struct line ln1 = {
+	{10, 20}, {30, 40}
+
+	};
+
+	printf("직선 정보: ");
+	print_point(&ln1.start);
+	print_point(&ln1.end);
+	printf("\n길이: %f\n", get_length(&ln1));
+	*/
+
+	enum direction moves[] = {
+		north, north, east, south, south, west
+	};
+	/*
+	int size = sizeof(moves) / sizeof(moves[0]);
+	int i;
+
+	printf("이동 순서: ");
+	for (i = 0; i < size; i++)
+	{
+		switch (moves[i])
+		{
+		case north:
+			printf("북 ");
+			break;
+		case south:
+			printf("남 ");
+			break;
+		case east:
+			printf("동 ");
+			break;
+		case west:
+			printf("서 ");
+			break;
+		}
+	}
+	printf("\n");
+	*/
+	/*
+	union test t1 = { 0x12345678 };
+
+	printf("t1.i의 주소=%p\n", &t1.i);
+	printf("t1.c의 주소=%p\n", &t1.c);
+	printf("t1.s의 주소=%p\n", &t1.s);
+
+	printf("sizeof(union test) =%d\n", sizeof(union test));
+
+	printf("t1.i=%x\n", t1.i);
+	printf("t1.c=%x\n", t1.c);
+	printf("t1.s=%x\n", t1.s);
+	*/
+
+	point_t pt1 = { 10, 20 };
+	print_point(&pt1);
+
 
 	return 0;
 
 }
+
+//함수를 정의할 때에는 구조체 포인터로 구조체의 각 멤버에 접근
+/*void print_content(const struct content* ptr)
+{
+	printf("%s, %d, %.1f\n", )
+
+}*/
+
+//구조체 안에 다른 구조체 변수를 멤버로 포함 가능
+/*struct line {
+	struct point start, end; // line 구조체 정의에 앞서 point 구조체가 정의되어 있어야 한다.
+};*/
+
+//line 구조체 변수를 선언하면, point 구조체 변수인 start와 end가 메모리에 할당됨
+/*struct line ln1 = {
+	{10, 20}, {30, 40}
+
+};*/
+
+/*void print_point(const struct point* ptr)
+{
+	printf("(%d, %d) ", ptr->x, ptr->y);
+}*/
+
+void print_point(const point_t* ptr)
+{
+	printf("(%d, %d) ", ptr->x, ptr->y);
+}
+
+/*double get_length(const struct line* ptr)
+{
+	int dx = ptr->end.x - ptr->start.x;
+	int dy = ptr->end.y - ptr->start.y;
+	return sqrt(dx * dx + dy * dy);
+
+}*/
 
 
 
